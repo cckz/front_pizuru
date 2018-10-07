@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OX-hpKKSTj5PW.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFUZ0bf8pkAp6a.woff2) format('woff2');
+
+}
+
+body, html {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.layout {
+    background: #fefefe;
+}
+
+.top {
+    background: #fefefe;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.ant-tabs-nav {
+    background: #333;
+    padding: 1rem 0;
+}
+
+.ant-tabs-bar {
+    width: 23%;
+}
+
+.ant-tabs-tab {
+    text-align: left !important;
+    font-size: 14px;
+    padding: 0.4rem 2rem;
+    margin: 0;
+    color: #f3f3f3;
+}
