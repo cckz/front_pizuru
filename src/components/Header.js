@@ -8,6 +8,8 @@ import fb from './img/fb.png'
 import yt from './img/yt.png'
 import user from './img/user.png'
 
+import {Container} from './styledComponents'
+
 const Social = styled.a`
    text-decoration: none;
    margin-right: 0.5rem;
@@ -50,34 +52,36 @@ const LoginSpan = styled.span`
      letter-spacing: 0.1rem;
 `
 
-class HeaderComp extends Component {
+class Header extends Component {
     render() {
         const {Header} = Layout;
 
-        return (            
-            <Header className="top">
-                <div>
-                    <Social href="https://instagram.com" target="_blank" rel="noopener">
-                        <SocialImg src={instagram} />
-                    </Social>
-                    <Social href="https://instagram.com" target="_blank" rel="noopener">
-                        <SocialImg src={fb} />
-                    </Social>
-                    <Social href="https://instagram.com" target="_blank" rel="noopener">
-                        <SocialImg src={yt} />
-                    </Social>
-                </div>
-                <Title>pizu.ru</Title>
-                <Login>
-                    <LoginA href="/account/logout/">
-                        <LoginImg src={user} />
-                        <LoginSpan>Выход</LoginSpan>
-                    </LoginA>
-                </Login>
-            </Header>            
+        return (
+            <Container>
+                <Header className="top">
+                    <div>
+                        <Social href="https://instagram.com" target="_blank" rel="noopener">
+                            <SocialImg src={instagram} />
+                        </Social>
+                        <Social href="https://instagram.com" target="_blank" rel="noopener">
+                            <SocialImg src={fb} />
+                        </Social>
+                        <Social href="https://instagram.com" target="_blank" rel="noopener">
+                            <SocialImg src={yt} />
+                        </Social>
+                    </div>
+                    <Title>pizu.ru</Title>
+                    <Login>
+                        <LoginA href="/account/logout/">
+                            <LoginImg src={user} />
+                            <LoginSpan>Выход</LoginSpan>
+                        </LoginA>
+                    </Login>
+                </Header>
+            </Container>
         )
     }
 }
 
-export default HeaderComp;
+export default Header;
 
