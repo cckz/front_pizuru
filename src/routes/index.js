@@ -10,7 +10,7 @@ export const routes = [
     {
         path: "/",
         exact: true,
-        main: () => <Redirect to="/profile"/>
+        main: () => <Redirect to="/profile" />
     },
     {
         path: "/site",

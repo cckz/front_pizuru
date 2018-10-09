@@ -7,7 +7,7 @@ class Footer extends Component {
         const {Footer} = Layout;
         return (
             <Container>
-                <Footer style={{ padding: '0 50px', textAlign: 'center' }}>
+                <Footer style={{ padding: '0 50px', textAlign: 'center', backgroundColor: "#fefefe" }}>
                     © 2018 pizu.ru. All rights reserved
                 </Footer>
             </Container>

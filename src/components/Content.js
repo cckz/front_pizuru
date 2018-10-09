@@ -3,7 +3,7 @@ import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom'
 import { Layout } from 'antd';
 import styled from "styled-components";
 
-import  {Container} from './styledComponents'
+import {Container} from './styledComponents'
 import {routes} from "../routes";
 
 const Sidebar = styled.div`
@@ -40,7 +40,6 @@ class Content extends Component {
                     <NavLink to="/profile"
                              activeClassName="selected">
                         Аккаунт
-
                     </NavLink>
                 </SidebarLi>
                 <SidebarLi>
