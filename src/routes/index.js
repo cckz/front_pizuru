@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import WrappedProfileForm from '../components/forms/Profile'
 import WrappedSiteForm from '../components/forms/Site'
 import WrappedWorkersForm from '../components/forms/Workers'
+import WrappedNotificationsForm from "../components/forms/Notofications";
+import WrappedSupportForm from "../components/forms/Support"
 
 export const routes = [
     {
@@ -20,11 +22,11 @@ export const routes = [
     },
     {
         path: "/notifications",
-        main: () => <h2>Shoelaces</h2>
+        main: () => <WrappedNotificationsForm />
     },
     {
         path: "/support",
-        main: () => <h2>Shoelaces</h2>
+        main: () => <WrappedSupportForm />
     },
     {
         path: "/profile",
