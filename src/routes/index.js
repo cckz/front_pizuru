@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
+import WrappedProfileForm from '../components/forms/Profile'
+import WrappedSiteForm from '../components/forms/Site'
+import WrappedWorkersForm from '../components/forms/Workers'
 
 export const routes = [
     {
@@ -9,11 +12,11 @@ export const routes = [
     },
     {
         path: "/site",
-        main: () => <h2>Bubblegum</h2>
+        main: () => <WrappedSiteForm />
     },
     {
         path: "/workers",
-        main: () => <h2>Shoelaces</h2>
+        main: () => <WrappedWorkersForm />
     },
     {
         path: "/notifications",
@@ -25,6 +28,6 @@ export const routes = [
     },
     {
         path: "/profile",
-        main: () => <h2>Home</h2>
+        main: () => <WrappedProfileForm />
     },
 ];

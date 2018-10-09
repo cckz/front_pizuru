@@ -23,8 +23,8 @@ body, html {
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
 }
 
 .layout {
@@ -46,4 +46,20 @@ body {
 
 .selected:focus {
     text-decoration: none;
+}
+
+.ant-form-item-label {
+    text-transform: uppercase;
+}
+
+.ant-form label {
+    font-size: 12px !important;
+}
+
+.ant-input:focus {
+    border-color: #5fda20 !important;
+}
+
+.ant-btn {
+    text-transform: uppercase;
 }

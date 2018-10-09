@@ -24,7 +24,7 @@ const SidebarLi = styled.li`
 
 const Body = styled.div`
   flex: 1;
-  padding: 10px;
+  margin: 0 2rem;
 `
 
 class Content extends Component {
