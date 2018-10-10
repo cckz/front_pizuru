@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import styled from 'styled-components';
-import './style.css'
+import { history } from '../history'
 
 import instagram from './img/instagram.png'
 import fb from './img/fb.png'
 import yt from './img/yt.png'
 import user from './img/user.png'
 
-import {Container} from './styledComponents'
+import { Container } from './styledComponents'
+import { logout } from "../actions/auth";
+import { connect } from 'react-redux'
+import {isAuthenticated} from "../reducers";
+
 
 const Social = styled.a`
    text-decoration: none;
@@ -52,10 +56,22 @@ const LoginSpan = styled.span`
      letter-spacing: 0.1rem;
 `
 
+const LoginEmpty = styled.div`
+    margin-left: auto;
+    width: 8%;
+`
+
 class Header extends Component {
+    handleClickLogout = () => {
+        console.log(localStorage)
+        localStorage.removeItem('persist:polls')
+        history.push('/login')
+    }
+
     render() {
         const {Header} = Layout;
-
+        const {handleClickLogout, isAuthenticated} = this.props
+        console.log(this.props)
         return (
             <Container>
                 <Header className="top">
@@ -71,17 +87,33 @@ class Header extends Component {
                         </Social>
                     </div>
                     <Title>pizu.ru</Title>
-                    <Login>
-                        <LoginA href="/account/logout/">
-                            <LoginImg src={user} />
-                            <LoginSpan>Выход</LoginSpan>
-                        </LoginA>
-                    </Login>
+                    {isAuthenticated ?
+                        <Login>
+                            <LoginA onClick = {handleClickLogout}>
+                                <LoginImg src={user} />
+                                <LoginSpan>Выход</LoginSpan>
+                            </LoginA>
+                        </Login>
+                            :
+                        <LoginEmpty />
+                    }
                 </Header>
             </Container>
         )
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+    isAuthenticated: isAuthenticated(state)
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    handleClickLogout: () => {
+        dispatch(logout())
+    }
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
 

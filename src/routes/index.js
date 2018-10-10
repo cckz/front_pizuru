@@ -6,8 +6,7 @@ import WrappedWorkersForm from '../components/forms/Workers'
 import WrappedNotificationsForm from "../components/forms/Notofications";
 import WrappedSupportForm from "../components/forms/Support"
 
-export const routes = [
-    {
+export const routes = [{
         path: "/",
         exact: true,
         main: () => <Redirect to="/profile" />

@@ -9,6 +9,7 @@ import apiMiddleware from '../middlewares/apiMidleware';
 export default (history) => {
     const persistedFilter = createFilter(
         'auth', ['access', 'refresh']);
+
     const reducer = persistReducer({
             key: 'polls',
             storage: storage,
@@ -16,6 +17,7 @@ export default (history) => {
             transforms: [persistedFilter]
         },
         rootReducer)
+
     const store = createStore(
         reducer, {},
         applyMiddleware(
