@@ -1,18 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-
-import { ConnectedRouter } from 'react-router-redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import configureStore from './store'
-import './components/style.css';
-
 import {Route, Switch} from 'react-router'
-import Login from './components/Login';
-import PrivateRoute from './components/PrivateRoute';
+import createSagaMiddleware from 'redux-saga'
+import { ConnectedRouter } from 'react-router-redux'
+
 import {history} from './history'
 
-const store = configureStore(history)
+import App from './components/App'
+import Login from './components/Login'
+import PrivateRoute from './components/PrivateRoute'
+
+import './components/style.css'
+import configureStore from './store'
+import sagas from './middlewares/sagas'
+
+const sagaMiddleware = createSagaMiddleware();
+const store = configureStore(history, sagaMiddleware)
+
+sagaMiddleware.run(sagas);
 
 ReactDOM.render((
     <Provider store={store}>

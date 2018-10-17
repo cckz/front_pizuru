@@ -71,7 +71,6 @@ class Header extends Component {
     render() {
         const {Header} = Layout;
         const {handleClickLogout, isAuthenticated} = this.props
-        console.log(this.props)
         return (
             <Container>
                 <Header className="top">

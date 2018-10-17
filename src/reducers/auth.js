@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode'
-import { LOGIN_SUCCESS, LOGIN_FAILURE,
-         TOKEN_RECEIVED, TOKEN_FAILURE,
-         LOGOUT } from '../constants'
+import { AUTH_SUCCESS, AUTH_FAILURE,
+    TOKEN_RECEIVED, TOKEN_FAILURE,
+    LOGOUT } from '../constants'
 
 const initialState = {
     access: undefined,
@@ -10,17 +10,18 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    console.log('action', action.type)
-    switch(action.type) {
-        case LOGIN_SUCCESS:
+    const {type, payload} = action
+    console.log(type, payload)
+    switch(type) {
+        case AUTH_SUCCESS:
             return {
                 access: {
-                    token: action.payload.access,
-                    ...jwtDecode(action.payload.access)
+                    token: payload.access,
+                    ...jwtDecode(payload.access)
                 },
                 refresh: {
-                    token: action.payload.refresh,
-                    ...jwtDecode(action.payload.refresh)
+                    token: payload.refresh,
+                    ...jwtDecode(payload.refresh)
                 },
                 errors: {}
             }
@@ -28,8 +29,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 access: {
-                    token: action.payload.access,
-                    ...jwtDecode(action.payload.access)
+                    token: payload.access,
+                    ...jwtDecode(payload.access)
                 }
             }
         case LOGOUT:
@@ -37,14 +38,14 @@ export default (state = initialState, action) => {
                 access: undefined,
                 refresh: undefined,
             }
-        case LOGIN_FAILURE:
+        case AUTH_FAILURE:
         case TOKEN_FAILURE:
             return {
                 access: undefined,
                 refresh: undefined,
                 errors:
-                action.payload.response ||
-                {'non_field_errors': action.payload.statusText},
+                payload.response ||
+                {'non_field_errors': payload.statusText},
             }
         default:
             return state

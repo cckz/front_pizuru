@@ -14,7 +14,7 @@ module.exports = function override(config, env) {
                       "@btn-height-base": "36px",
                       "@input-hover-border-color": "#5fda20",
                       "@form-vertical-label-padding": "0",
-                      "@switch-color": "#cc4b37"},
+                      "@switch-color": "#cc4b37",},
         javascriptEnabled: true,
     })(config, env);
     return config;
