@@ -11,7 +11,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const {type, payload} = action
-    console.log(type, payload)
+    console.log(action)
     switch(type) {
         case AUTH_SUCCESS:
             return {
@@ -53,6 +53,7 @@ export default (state = initialState, action) => {
 }
 
 export function accessToken(state) {
+    console.log(state.access.token, '-098')
     if (state.access) {
         return state.access.token
     }
@@ -84,4 +85,8 @@ export function isAuthenticated(state) {
 
 export function errors(state) {
     return state.errors
+}
+
+export function getUserId(state) {
+    return state.refresh.user_id
 }

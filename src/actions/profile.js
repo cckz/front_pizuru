@@ -1,7 +1,5 @@
-import { withAuth } from '../reducers'
+import {PROFILE_REQUEST} from '../constants'
 
-import {PROFILE_FAILURE, PROFILE_REQUEST, PROFILE_SUCCESS} from '../constants'
-
-export const profile = (profileInfo) => ({
+export const profile = (id) => ({
     type: PROFILE_REQUEST
 })

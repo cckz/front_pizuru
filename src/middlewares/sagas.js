@@ -1,7 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, TOKEN_RECEIVED, TOKEN_REQUEST, TOKEN_FAILURE} from '../constants';
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, TOKEN_RECEIVED, TOKEN_REQUEST, TOKEN_FAILURE, PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE} from '../constants';
 import {select, all} from 'redux-saga/effects'
-import {isAccessTokenExpired, refreshToken} from "../reducers";
+import {accessToken, isAccessTokenExpired, refreshToken} from "../reducers";
+import { withAuth } from '../reducers'
+
 
 const fetchJSON = (url, options = {}) =>
     new Promise((resolve, reject) => {
@@ -63,11 +65,38 @@ function* refresh(token) {
     }
 }
 
+function* profileGet({payload: {id}}) {
+    const state = yield select();
+
+    const options = {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${state.auth.access.token}`
+        }
+    };
+    try {
+        const { email }  = yield call(fetchJSON, '/account/api/current_user/', options);
+        yield put({ type: PROFILE_SUCCESS});
+
+    } catch (error) {
+        let message;
+        switch (error.status) {
+            case 500: message = 'Internal Server Error'; break;
+            case 401: message = 'Invalid credentials'; break;
+            default: message = 'Something went wrong';
+        }
+        yield put({ type: PROFILE_FAILURE, payload: message });
+    }
+}
+
 function* saga() {
     yield all([
         takeLatest('persist/REHYDRATE', checkExpiredWhenInitialize),
         takeLatest(AUTH_REQUEST, login),
         takeLatest(TOKEN_REQUEST, refresh),
+        takeLatest(PROFILE_REQUEST, profileGet),
     ]);
 };
 

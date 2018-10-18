@@ -5,12 +5,10 @@ const initialState = {
 }
 export default (state = initialState, action) => {
     const {type, payload} = action
-    console.log(action)
     switch(type) {
         case PROFILE_SUCCESS:
-            return {...state, profileInfo: payload.profileInfo}
+            return {...state, profileInfo: payload}
         default:
             return state
     }
-    console.log('---', state)
 }

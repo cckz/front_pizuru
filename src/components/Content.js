@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom'
 import { Layout } from 'antd';
 import styled from "styled-components";
+import { connect } from 'react-redux'
+
+import {userId} from "../reducers";
+import {requestProfile} from "../actions/auth";
 
 import {Container} from './styledComponents'
 import {routes} from "../routes";
@@ -28,7 +32,13 @@ const Body = styled.div`
 `
 
 class Content extends Component {
-  render() {
+
+    componentWillMount() {
+        const { user_id, fetchProfile } = this.props
+        fetchProfile(user_id)
+    }
+
+    render() {
     const {Content} = Layout;
     return (
       <Container>
@@ -85,4 +95,16 @@ class Content extends Component {
   }
 }
 
-export default Content;
+
+
+const mapStateToProps = (state) => ({
+    user_id: userId(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchProfile: (id) => {
+        dispatch(requestProfile(id))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
