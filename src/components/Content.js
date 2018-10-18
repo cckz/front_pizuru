@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { connect } from 'react-redux'
 
 import {userId} from "../reducers";
-import {requestProfile} from "../actions/auth";
+import {requestProfile} from "../actions/profile";
 
 import {Container} from './styledComponents'
 import {routes} from "../routes";

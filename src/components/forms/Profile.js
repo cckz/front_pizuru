@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import styled from "styled-components";
 import { connect } from 'react-redux'
-import { profile } from '../../actions/profile'
+import { requestProfile } from '../../actions/profile'
 
 const FormWrap = styled.div`
   width: 70%
@@ -90,7 +90,7 @@ const WrappedProfileForm = Form.create()(ProfileForm);
 
 const mapDispatchToProps = (dispatch) => ({
     onSubmit: (values) => {
-        dispatch(profile(values))
+        dispatch(requestProfile(values))
     }
 })
 

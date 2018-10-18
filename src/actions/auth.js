@@ -1,14 +1,15 @@
-import { AUTH_REQUEST, LOGOUT, PROFILE_REQUEST } from '../constants'
+import {AUTH_REQUEST, LOGOUT, TOKEN_REQUEST} from '../constants'
 
 export const login = (email, password) => ({
     type: AUTH_REQUEST,
     payload: { email, password }
 });
 
-export const requestProfile = (id) => ({
-    type: PROFILE_REQUEST,
-    payload: { id }
+export const token = (token) => ({
+    type: TOKEN_REQUEST,
+    payload: token
 });
+
 
 export const logout = () => {
     return {

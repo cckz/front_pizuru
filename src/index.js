@@ -13,12 +13,12 @@ import PrivateRoute from './components/PrivateRoute'
 
 import './components/style.css'
 import configureStore from './store'
-import sagas from './middlewares/sagas'
+import saga from './sagas/sagas'
 
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore(history, sagaMiddleware)
 
-sagaMiddleware.run(sagas);
+sagaMiddleware.run(saga);
 
 ReactDOM.render((
     <Provider store={store}>
