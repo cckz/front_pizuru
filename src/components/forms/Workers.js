@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import styled from "styled-components";
+import { connect } from 'react-redux'
+
+import { addWorkers } from '../../actions/profile'
 
 const FormWrap = styled.div`
   width: 70%
@@ -16,22 +19,50 @@ class WorkersForm extends Component {
         };
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.onSubmit(values)
+            }
+        });
+    }
+
     render() {
         const { formLayout } = this.state;
+        const { profile } = this.props
+        const { getFieldDecorator } = this.props.form;
 
         return (
             <FormWrap>
-                <Form layout={formLayout}>
+                <Form layout={formLayout}
+                      onSubmit={this.handleSubmit}
+                >
                     <FormItem
                         label="Сотрудник:">
-                        <Input />
+                        {getFieldDecorator('name', {
+                            rules: [{ required: true,
+                                message: 'Введите сотрудника'
+                            }, {
+                                pattern: '[a-zA-Zа-яА-Я0-9]',
+                                message: 'Некорректная запись'
+                            }],
+                        })(
+                            <Input />
+                        )}
                     </FormItem>
                     <FormItem
                         label="Пароль:">
-                        <Input />
+                        {getFieldDecorator('password', {
+                            rules: [{ required: true,
+                                message: 'Введите пароль'
+                            }],
+                        })(
+                            <Input />
+                        )}
                     </FormItem>
                     <FormItem >
-                        <Button type="primary">Добавить сотрудника</Button>
+                        <Button htmlType="submit" type="primary">Добавить сотрудника</Button>
                     </FormItem>
                 </Form>
             </FormWrap>
@@ -41,4 +72,14 @@ class WorkersForm extends Component {
 
 const WrappedWorkersForm = Form.create()(WorkersForm);
 
-export default WrappedWorkersForm;
+const mapStateToProps = (state) => ({
+    workers: state.profile.userInformation.workers,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    onSubmit: (values) => {
+        dispatch(addWorkers(values))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedWorkersForm);

@@ -8,10 +8,15 @@ export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST';
 export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED';
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';
 
-export const PROFILE_REQUEST = '@@profile/PROFILE_REQUEST';
-export const PROFILE_SUCCESS = '@@profile/PROFILE_SUCCESS';
-export const PROFILE_FAILURE = '@@profile/PROFILE_FAILURE';
+export const PROFILE_GET_REQUEST = '@@profile/PROFILE_REQUEST';
+export const PROFILE_GET_SUCCESS = '@@profile/PROFILE_SUCCESS';
+export const PROFILE_GET_FAILURE = '@@profile/PROFILE_FAILURE';
 
 export const PROFILE_POST_REQUEST = '@@profile/PROFILE_POST_REQUEST';
 export const PROFILE_POST_SUCCESS = '@@profile/PROFILE_POST_SUCCESS';
 export const PROFILE_POST_FAILURE = '@@profile/PROFILE_POST_FAILURE';
+
+export const PROFILE_ADD_WORKER_REQUEST = '@@profile/PROFILE_ADD_WORKER_REQUEST';
+export const PROFILE_ADD_WORKER_SUCCESS = '@@profile/PROFILE_ADD_WORKER_SUCCESS';
+export const PROFILE_ADD_WORKER_FAILURE = '@@profile/PROFILE_ADD_WORKER_FAILURE';
+
