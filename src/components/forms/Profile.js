@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import styled from "styled-components";
 import { connect } from 'react-redux'
-import { requestProfile } from '../../actions/profile'
+import { saveDataProfile } from '../../actions/profile'
 
 const FormWrap = styled.div`
   width: 70%
@@ -20,10 +20,15 @@ class ProfileForm extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.props.onSubmit(values)
-                console.log(values)
             }
-            console.log(err)
         });
+    }
+
+    getInitialValues = (field) => {
+        const { profile } = this.props
+        if (profile) {
+            return profile[field]
+        }
     }
 
     render() {
@@ -36,6 +41,7 @@ class ProfileForm extends Component {
                 >
                     <FormItem label="Организация:">
                         {getFieldDecorator('title_org', {
+                            initialValue: this.getInitialValues('title_org'),
                             rules: [{ required: true,
                                       message: 'Введите название вашей организации!'
                             }],
@@ -45,6 +51,7 @@ class ProfileForm extends Component {
                     </FormItem>
                     <FormItem label="Контактный телефон:">
                         {getFieldDecorator('phone', {
+                            initialValue: this.getInitialValues('phone'),
                             rules: [{ pattern: '^[0-9]*$',
                                       message: 'Введите телефон в правильном формате!'
                             }],
@@ -54,6 +61,7 @@ class ProfileForm extends Component {
                     </FormItem>
                     <FormItem label="Город:">
                         {getFieldDecorator('city', {
+                            initialValue: this.getInitialValues('city'),
                             rules: [{ pattern: '^[a-zA-Zfа-яА-Я ]*$',
                                       message: 'Неверный формат!'
                             }],
@@ -63,6 +71,7 @@ class ProfileForm extends Component {
                     </FormItem>
                     <FormItem label="Адрес:">
                         {getFieldDecorator('address', {
+                            initialValue: this.getInitialValues('address'),
                             rules: [{ pattern: '^[a-zA-Zа-яА-Я0-9 ,.]*$',
                                       message: 'Неверный формат!'
                             }],
@@ -72,6 +81,7 @@ class ProfileForm extends Component {
                     </FormItem>
                     <FormItem label="Дополнительная информация:">
                         {getFieldDecorator('more_info', {
+                            initialValue: this.getInitialValues('more_info'),
                             rules: [],
                         })(
                             <Input.TextArea rows={4} />
@@ -88,10 +98,14 @@ class ProfileForm extends Component {
 
 const WrappedProfileForm = Form.create()(ProfileForm);
 
+const mapStateToProps = (state) => ({
+    profile: state.profile.userInformation,
+})
+
 const mapDispatchToProps = (dispatch) => ({
     onSubmit: (values) => {
-        dispatch(requestProfile(values))
+        dispatch(saveDataProfile(values))
     }
 })
 
-export default connect(null, mapDispatchToProps)(WrappedProfileForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedProfileForm);

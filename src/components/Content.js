@@ -4,7 +4,6 @@ import { Layout } from 'antd';
 import styled from "styled-components";
 import { connect } from 'react-redux'
 
-import {userId} from "../reducers";
 import {requestProfile} from "../actions/profile";
 
 import {Container} from './styledComponents'
@@ -34,8 +33,8 @@ const Body = styled.div`
 class Content extends Component {
 
     componentWillMount() {
-        const { user_id, fetchProfile } = this.props
-        fetchProfile(user_id)
+        const { fetchProfile } = this.props
+        fetchProfile()
     }
 
     render() {
@@ -95,16 +94,10 @@ class Content extends Component {
   }
 }
 
-
-
-const mapStateToProps = (state) => ({
-    user_id: userId(state),
-})
-
 const mapDispatchToProps = (dispatch) => ({
-    fetchProfile: (id) => {
-        dispatch(requestProfile(id))
-    }
+    fetchProfile: () => {
+        dispatch(requestProfile())
+    },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(null, mapDispatchToProps)(Content);

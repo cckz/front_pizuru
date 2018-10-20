@@ -1,10 +1,10 @@
-import {PROFILE_REQUEST} from '../constants'
+import {PROFILE_REQUEST, PROFILE_POST_REQUEST} from '../constants'
 
-export const profile = (id) => ({
-    type: PROFILE_REQUEST
+export const saveDataProfile = (profile) => ({
+    type: PROFILE_POST_REQUEST,
+    payload: { profile }
 })
 
-export const requestProfile = (id) => ({
+export const requestProfile = () => ({
     type: PROFILE_REQUEST,
-    payload: { id }
 });

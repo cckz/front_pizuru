@@ -1,8 +1,9 @@
 import * as echo from '../actions/echo'
-const initialState = {
+
+const authInitialState = {
     message: ""
 }
-export default (state=initialState, action) => {
+export default (state=authInitialState, action) => {
     switch(action.type) {
         case echo.ECHO_SUCCESS:
             return {

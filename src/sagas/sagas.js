@@ -1,8 +1,7 @@
-import { all, takeLatest, fork } from 'redux-saga/effects';
-import { AUTH_REQUEST, TOKEN_REQUEST, PROFILE_REQUEST} from '../constants';
-import {login} from './login'
-import {refresh, checkExpiredAccessToken} from "./jwt";
-import {profileGet} from "./profile";
+import { all } from 'redux-saga/effects';
+import {loginSaga} from './login'
+import {jwtSaga} from "./jwt";
+import {profileSaga} from "./profile";
 
 export const fetchJSON = (url, options = {}) =>
     new Promise((resolve, reject) => {
@@ -15,10 +14,9 @@ export const fetchJSON = (url, options = {}) =>
 
 function* saga() {
     yield all([
-        fork(takeLatest, 'persist/REHYDRATE', checkExpiredAccessToken),
-        takeLatest(AUTH_REQUEST, login),
-        takeLatest(TOKEN_REQUEST, refresh),
-        takeLatest(PROFILE_REQUEST, profileGet),
+        loginSaga(),
+        jwtSaga(),
+        profileSaga()
     ]);
 };
 

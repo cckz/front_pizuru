@@ -1,17 +1,18 @@
-import {select, put, call} from 'redux-saga/effects'
+import {select, put, call, take, takeLatest} from 'redux-saga/effects'
 import {TOKEN_FAILURE, TOKEN_RECEIVED, TOKEN_REQUEST} from "../constants";
 import {fetchJSON} from "./sagas";
 import {isAccessTokenExpired, refreshToken} from "../reducers";
 
-export  function* checkExpiredAccessToken() {
+export function* checkExpiredAccessToken() {
     const state = yield select();
     const token = refreshToken(state)
     if (token && isAccessTokenExpired(state)) {
         yield put({ type: TOKEN_REQUEST, payload: token});
+        yield take(TOKEN_RECEIVED, TOKEN_FAILURE);
     }
 }
 
-export function* refresh(token) {
+function* refresh(token) {
     const options = {
         body: JSON.stringify({ refresh: token.payload }),
         method: 'POST',
@@ -30,3 +31,7 @@ export function* refresh(token) {
         yield put({ type: TOKEN_FAILURE, payload: message });
     }
 }
+
+export function* jwtSaga() {
+    yield takeLatest(TOKEN_REQUEST, refresh)
+};

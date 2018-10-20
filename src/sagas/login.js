@@ -1,9 +1,9 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchJSON } from './sagas'
-import {AUTH_FAILURE, AUTH_SUCCESS} from "../constants";
+import {AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS} from "../constants";
 
 
-export function* login({ payload: { email, password } }) {
+function* login({ payload: { email, password } }) {
     const options = {
         body: JSON.stringify({ email, password }),
         method: 'POST',
@@ -24,3 +24,7 @@ export function* login({ payload: { email, password } }) {
         yield put({ type: AUTH_FAILURE, payload: message });
     }
 }
+
+export function* loginSaga() {
+    yield takeLatest(AUTH_REQUEST, login)
+};

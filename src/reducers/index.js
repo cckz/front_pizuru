@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth.js'
-import profile, * as fromProfile from './profile.js'
+import profile from './profile.js'
 
 export default combineReducers({
     auth: auth,
