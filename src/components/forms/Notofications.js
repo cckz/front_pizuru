@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Button, Switch } from 'antd';
+import { Form, Button, Switch, Icon } from 'antd';
 import styled from "styled-components";
+import { connect } from 'react-redux'
+
+import { saveDataProfile } from '../../actions/profile'
 
 const FormWrap = styled.div`
   width: 70%
@@ -16,29 +19,59 @@ class NotificationsForm extends Component {
         };
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log(values)
+                this.props.onSubmit(values)
+            }
+        });
+    }
+
     render() {
         const { formLayout } = this.state;
         const formItemLayout = {
             labelCol: { span: 21 },
             wrapperCol: { span: 3 },
         };
+        const { profile } = this.props
+        const { getFieldDecorator } = this.props.form;
         return (
             <FormWrap>
-                <Form layout={formLayout}>
+                <Form layout={formLayout}
+                      onSubmit={this.handleSubmit}
+                >
                     <FormItem
                         {...formItemLayout}
                         label="Новости / Блог:"
                     >
-                        <Switch />
+                        {getFieldDecorator('news_blog', {
+                            valuePropName: 'checked',
+                            initialValue: profile.news_blog,
+                        })(
+                            <Switch
+                                checkedChildren={<Icon type="check" />}
+                                unCheckedChildren={<Icon type="close" />}
+                            />
+                        )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Акции / Скидки:"
                     >
-                        <Switch />
+                        {getFieldDecorator('stock_discounts', {
+                            valuePropName: 'checked',
+                            initialValue: profile.stock_discounts,
+                        })(
+                            <Switch
+                                checkedChildren={<Icon type="check" />}
+                                unCheckedChildren={<Icon type="close" />}
+                            />
+                        )}
                     </FormItem>
                     <FormItem >
-                        <Button type="primary">Сохранить</Button>
+                        <Button htmlType="submit" type="primary">Сохранить</Button>
                     </FormItem>
                 </Form>
             </FormWrap>
@@ -48,4 +81,14 @@ class NotificationsForm extends Component {
 
 const WrappedNotificationsForm = Form.create()(NotificationsForm);
 
-export default WrappedNotificationsForm;
+const mapStateToProps = (state) => ({
+    profile: state.profile.userInformation,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    onSubmit: (values) => {
+        dispatch(saveDataProfile(values))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedNotificationsForm);

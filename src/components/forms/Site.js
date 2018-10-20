@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button, Switch, Icon } from 'antd';
 import styled from "styled-components";
 import { connect } from 'react-redux'
+
 import { saveDataProfile } from '../../actions/profile'
 
 const FormWrap = styled.div`
@@ -47,10 +48,15 @@ class SiteForm extends Component {
                         {getFieldDecorator('domain', {
                             initialValue: profile.domain,
                             rules: [{ required: true,
-                                message: 'Введите название вашей организации!'
+                                message: 'Введите URL!'
+                            }, {
+                                pattern: '[a-zа-я0-9]+\\.[a-zрф]',
+                                message: 'Введите корректный URL!'
                             }],
                         })(
-                            <Input />
+                            <Input
+                                disabled = {profile.domain ? true : false}
+                            />
                         )}
                     </FormItem>
                     <FormItem
