@@ -9,6 +9,9 @@ import {
     PROFILE_ADD_WORKER_REQUEST,
     PROFILE_ADD_WORKER_SUCCESS,
     PROFILE_ADD_WORKER_FAILURE,
+    PROFILE_DELETE_WORKER_FAILURE,
+    PROFILE_DELETE_WORKER_REQUEST,
+    PROFILE_DELETE_WORKER_SUCCESS
 } from "../constants";
 
 import {fetchJSON} from "./sagas";
@@ -78,7 +81,7 @@ function* addWorkerToProfile({payload: { newWorkerData }}) {
         }
     };
     try {
-        const newWorker  = yield call(fetchJSON, '/account/api/profile/add_worker/', options);
+        const newWorker  = yield call(fetchJSON, '/account/api/profile/workers/', options);
         yield put({ type: PROFILE_ADD_WORKER_SUCCESS, payload: newWorker });
     } catch (error) {
         let message;
@@ -91,10 +94,38 @@ function* addWorkerToProfile({payload: { newWorkerData }}) {
     }
 }
 
+
+function* deleteWorkerFromProfile({payload: { worker }}) {
+    yield call(checkExpiredAccessToken)
+    const state = yield select();
+    const options = {
+        method: 'DELETE',
+        body: JSON.stringify({...worker}),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken(state)}`
+        }
+    };
+    try {
+        const deleteWorker = yield call(fetchJSON, '/account/api/profile/workers/', options);
+        console.log(deleteWorker)
+        yield put({ type: PROFILE_DELETE_WORKER_SUCCESS, payload: deleteWorker});
+    } catch (error) {
+        let message;
+        switch (error.status) {
+            case 500: message = 'Internal Server Error'; break;
+            case 401: message = 'Invalid credentials'; break;
+            default: message = 'Something went wrong';
+        }
+        yield put({ type: PROFILE_DELETE_WORKER_FAILURE, payload: message });
+    }
+}
+
 export function* profileSaga() {
     yield all([
         takeLatest(PROFILE_GET_REQUEST, profileGet),
         takeLatest(PROFILE_POST_REQUEST, profilePost),
         takeLatest(PROFILE_ADD_WORKER_REQUEST, addWorkerToProfile),
+        takeLatest(PROFILE_DELETE_WORKER_REQUEST, deleteWorkerFromProfile),
     ]);
 };

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, List, Icon } from 'antd';
 import styled from "styled-components";
 import { connect } from 'react-redux'
 
-import { addWorkers } from '../../actions/profile'
+import { addWorkers, deleteWorkers } from '../../actions/profile'
 
 const FormWrap = styled.div`
   width: 70%
+`
+
+const TitleWorkers = styled.h4`
+  margin-bottom: 10px;
 `
 
 const FormItem = Form.Item;
@@ -30,11 +34,33 @@ class WorkersForm extends Component {
 
     render() {
         const { formLayout } = this.state;
-        const { profile } = this.props
+        const { workers, hundleDeleteWorker } = this.props
         const { getFieldDecorator } = this.props.form;
-
+        console.log(workers)
         return (
             <FormWrap>
+                {workers.length > 0 ?
+                    <div>
+                        <TitleWorkers>Список сотрудников:</TitleWorkers>
+                        <List
+                            //loading={true}
+                            dataSource={workers}
+                            renderItem={worker => (
+                                <List.Item
+                                    actions={[
+                                        <a onClick={() => {hundleDeleteWorker(worker)}}>
+                                            <Icon type="close" />
+                                        </a>]}
+                                >
+                                    <List.Item.Meta
+                                        title={worker.name}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                    </div>
+                    : ""
+                }
                 <Form layout={formLayout}
                       onSubmit={this.handleSubmit}
                 >
@@ -79,6 +105,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     onSubmit: (values) => {
         dispatch(addWorkers(values))
+    },
+    hundleDeleteWorker: (worker) => {
+        dispatch(deleteWorkers(worker))
     }
 })
 
