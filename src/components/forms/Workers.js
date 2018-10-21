@@ -36,7 +36,6 @@ class WorkersForm extends Component {
         const { formLayout } = this.state;
         const { workers, hundleDeleteWorker } = this.props
         const { getFieldDecorator } = this.props.form;
-        console.log(workers)
         return (
             <FormWrap>
                 {workers.length > 0 ?

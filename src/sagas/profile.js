@@ -94,7 +94,6 @@ function* addWorkerToProfile({payload: { newWorkerData }}) {
     }
 }
 
-
 function* deleteWorkerFromProfile({payload: { worker }}) {
     yield call(checkExpiredAccessToken)
     const state = yield select();
@@ -108,7 +107,6 @@ function* deleteWorkerFromProfile({payload: { worker }}) {
     };
     try {
         const deleteWorker = yield call(fetchJSON, '/account/api/profile/workers/', options);
-        console.log(deleteWorker)
         yield put({ type: PROFILE_DELETE_WORKER_SUCCESS, payload: deleteWorker});
     } catch (error) {
         let message;
