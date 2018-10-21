@@ -74,7 +74,7 @@ function* addWorkerToProfile({payload: { newWorkerData }}) {
     const state = yield select();
     const options = {
         method: 'POST',
-        body: JSON.stringify({...newWorkerData, "to_profile": state.profile.userInformation.id}),
+        body: JSON.stringify({...newWorkerData, "to_user": state.profile.userInformation.user}),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken(state)}`

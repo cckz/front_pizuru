@@ -6,18 +6,19 @@ import {PROFILE_GET_SUCCESS,
 
 const profileInitialState = {
     email: undefined,
-    userInformation: {}
+    userInformation: {},
+    workers: {}
 }
 export default (state = profileInitialState, action) => {
     const {type, payload} = action
     switch(type) {
         case PROFILE_GET_SUCCESS:
-            return {...state, email: payload.email, userInformation: payload.to_user[0]}
+            return {...state, email: payload.email, userInformation: payload.profile[0]}
         case PROFILE_POST_SUCCESS:
             return {...state, userInformation: payload}
         case PROFILE_ADD_WORKER_SUCCESS:
-            const updInfAdd = {...state.userInformation, workers: state.userInformation.workers.concat(payload)}
-            return {...state, userInformation: updInfAdd}
+            ////!!!!!
+            return {...state, workers: state.workers.concat(payload)}
         case PROFILE_DELETE_WORKER_SUCCESS:
             console.log(payload)
             const {workers} = state.userInformation

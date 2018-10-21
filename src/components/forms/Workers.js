@@ -99,7 +99,7 @@ class WorkersForm extends Component {
 const WrappedWorkersForm = Form.create()(WorkersForm);
 
 const mapStateToProps = (state) => ({
-    workers: state.profile.userInformation.workers,
+    workers: state.profile.workers,
 })
 
 const mapDispatchToProps = (dispatch) => ({

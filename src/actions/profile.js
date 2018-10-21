@@ -20,5 +20,5 @@ export const deleteWorkers = (worker) => ({
 })
 
 export const requestProfile = () => ({
-    type: PROFILE_GET_REQUEST,
+    type: PROFILE_GET_REQUEST
 });
